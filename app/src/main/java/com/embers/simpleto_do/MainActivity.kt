@@ -73,6 +73,24 @@ class MainActivity : AppCompatActivity() {
                 adapter.notifyItemRemoved(position)
                 saveData()
             }
+
+            override fun onDoubleClick(position: Int) {
+                // When double clicked and 'submit' is hit in the dialog, the text entered will be
+                val dismissListener = object : EditTaskDialogFragment.OnDismissListener {
+                    override fun onDismiss(text: String, submitted: Boolean) {
+                        // If the dialog was submitted
+                        if (submitted) {
+                            // Update data, inform adapter, save to file
+                            taskList[position] = text
+                            adapter.notifyItemChanged(position)
+                            saveData()
+                        }
+                    }
+                }
+
+                val editTaskDialog = EditTaskDialogFragment(dismissListener)
+                editTaskDialog.show(supportFragmentManager, "edit_task")
+            }
         }
 
         // Setup RecyclerView

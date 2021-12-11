@@ -2,4 +2,7 @@
     <string name="app_name">Simple To-do</string>
     <string name="button_text">Add</string>
     <string name="textbox_labelfor">Name of new To-do list item</string>
+    <string name="dialog_edit_task">Edit the name of this to-do task</string>
+    <string name="dialog_positive">SUBMIT</string>
+    <string name="dialog_negative">CANCEL</string>
 </resources>
