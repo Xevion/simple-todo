@@ -8,12 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TaskItemAdapter(
     private val taskList: List<String>,
-    private val longClickListener: OnLongClickListener
+    private val clickListener: ClickListener
 ) :
     RecyclerView.Adapter<TaskItemAdapter.ViewHolder>() {
 
-    interface OnLongClickListener {
-        fun onItemLongClicked(position: Int)
+    interface ClickListener {
+        fun onSingleClick(position: Int) {}
+        fun onDoubleClick(position: Int) {}
+        fun onLongClick(position: Int) {}
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -21,9 +23,15 @@ class TaskItemAdapter(
 
         init {
             itemView.setOnLongClickListener {
-                longClickListener.onItemLongClicked(bindingAdapterPosition)
+                clickListener.onLongClick(bindingAdapterPosition)
                 true
             }
+
+            itemView.setOnClickListener(object : DoubleClickListener() {
+                override fun onDoubleClick(item: View) {
+                    clickListener.onDoubleClick(bindingAdapterPosition)
+                }
+            })
         }
     }
 

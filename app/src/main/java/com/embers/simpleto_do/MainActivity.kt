@@ -3,7 +3,6 @@ package com.embers.simpleto_do
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -68,8 +67,8 @@ class MainActivity : AppCompatActivity() {
         /**
          * Callback to remove a task at a given location in the list (on long click action)
          */
-        val onLongClickListener = object : TaskItemAdapter.OnLongClickListener {
-            override fun onItemLongClicked(position: Int) {
+        val clickListener = object : TaskItemAdapter.ClickListener {
+            override fun onLongClick(position: Int) {
                 taskList.removeAt(position)
                 adapter.notifyItemRemoved(position)
                 saveData()
@@ -79,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         // Setup RecyclerView
         editText = findViewById<EditText>(R.id.editTodoText)
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        adapter = TaskItemAdapter(taskList, onLongClickListener)
+        adapter = TaskItemAdapter(taskList, clickListener)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         button = findViewById(R.id.button)
@@ -87,13 +86,13 @@ class MainActivity : AppCompatActivity() {
         refreshButton()
 
         // Disable add task button when text is not inside EditText
-        findViewById<EditText>(R.id.editTodoText).setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+        findViewById<EditText>(R.id.editTodoText).setOnKeyListener { _, _, event ->
             // Read only event after the action has been processed in the textbox
             if (event.action == KeyEvent.ACTION_UP)
                 refreshButton()
 
             false
-        })
+        }
 
         findViewById<Button>(R.id.button).setOnClickListener {
             // Check that the task name has text in it

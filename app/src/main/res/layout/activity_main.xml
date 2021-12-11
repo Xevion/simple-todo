@@ -22,10 +22,10 @@
         android:layout_margin="10dp"
         android:importantForAutofill="no"
         android:inputType="textShortMessage"
-        tools:labelFor="@string/textbox_labelfor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:labelFor="@string/textbox_labelfor" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
